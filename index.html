@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan to Pay</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #upi-qr {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        #upi-qr:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Scan to Pay</h1>
+        <a id="upi-link" target="_blank">
+            <div id="upi-qr"></div>
+        </a>
+    </div>
+
+    <script>
+        // Define UPI payment details
+        const upiId = "aravindpradeep7046@okhdfcbank";
+        const name = "ACN";
+        const amount = "100.00";  // Immutable amount
+        const transactionNote = "Payment for Services";
+
+        // Create UPI payment URL
+        const upiUrl = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR&tn=${transactionNote}`;
+
+        // Generate QR code
+        const qrCode = new QRCode(document.getElementById("upi-qr"), {
+            text: upiUrl,
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Make QR code clickable
+        document.getElementById("upi-link").href = upiUrl;
+    </script>
+</body>
+</html>
